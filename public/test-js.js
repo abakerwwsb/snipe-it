@@ -1,0 +1,18 @@
+var data = null;
+
+var xhr = new XMLHttpRequest();
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+    document.getElementById("json").innerHTML = JSON.stringify(this.responseText, undefined, 2);
+  }
+});
+
+xhr.open("GET", "http://10.103.8.15/api/v1/users/137/assets");
+xhr.setRequestHeader("authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjJiZDAxN2M3NzdjMGRkYWIwOTcxMTdmNjM0YjFlYmEwMmVhZDc3NzljMTY0YmE3ZDMzOGNiZDgwYzgzOGE3NTEzZmYwMzgwN2M5NjZlNWFkIn0.eyJhdWQiOiIxIiwianRpIjoiMmJkMDE3Yzc3N2MwZGRhYjA5NzExN2Y2MzRiMWViYTAyZWFkNzc3OWMxNjRiYTdkMzM4Y2JkODBjODM4YTc1MTNmZjAzODA3Yzk2NmU1YWQiLCJpYXQiOjE1ODM1MTEzNDYsIm5iZiI6MTU4MzUxMTM0NiwiZXhwIjoxNjE1MDQ3MzQ2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.pmcq4D7L3hLcMk00Rj2cuMHe1Iu-iKiDq_im_GT8ql80m7yEhAtS4FpZef7PY6hEQQAScDu6jB_Wui7mYP7s_R_MV6fo29gNrBlUIkZXmLTPdp9ftuT_PRTfnU08kzGu6x8AJm_UYWUVPDLwKJPHjCO3z3OGSoNP9y0jnarjxmI9SBFpiBpurNsErjYqv5TqlBWBVKLW33t3hkTNnjnSMTQ5kf9f5vvT3qUkvIFsZvnFpWMQEw1-3OWEoJMTUj0BfKyhK111nDSyse3TfgsoSkTV9wTobtPS64TZbFtqEfpGeCjnbVu_B4kYWEPfcFU8pL2pwsZ-_GoRdqPgybenk0jydX2ACqrvgaXi7OX_nQTBrgwrsWgB0SO74R7GMoF1OizMPrR89evC32nvo6nFcagceN1VPHdsxlqlJiGb7x7zl0v5stDXfB73qgqD7vVlMdH_2fAl77GLl081bZa9yTuLGDCkEdIvAQHIn1RLJFkwIckgxi5i3BHzKTmn2R-sRVil6IWZ8aobw7u7X2Noc86rio5L9NTWi68VmDxCQTRDVNjU4THbUuyjQsLZ6sOPnA48-3RMBqUMYR0NenJ8-BwhwK7otudsP1dFMXDg29W80x5Ilm74KUkLPA8tev01_56ON1jBfcylMUH94Q__wmJA9VEeYFF9fqMmgJDm2QA");
+xhr.setRequestHeader("accept", "application/json");
+xhr.setRequestHeader("content-type", "application/json");
+
+xhr.send(data);
+

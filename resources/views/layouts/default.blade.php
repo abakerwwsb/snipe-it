@@ -396,7 +396,7 @@
             </li>
             @endcan
             @can('index', \App\Models\Asset::class)
-            <li class="treeview{{ (Request::is('hardware*') ? ' active' : '') }}">
+            <li class="treeview{{ (Request::is('hardware*') ? ' active' : '') }}{{ (Request::is('statuslabels/*') ? ' active' : '') }}">
                 <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i>
                   <span>{{ trans('general.assets') }}</span>
                   <i class="fa fa-angle-left pull-right"></i>
@@ -464,6 +464,14 @@
                     @endcan
 
                   <li class="divider">&nbsp;</li>
+                    @can('checkin', \App\Models\Asset::class)
+                    <li{!! (Request::is('hardware/bulkcheckin') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('hardware/bulkcheckin') }}">
+                            {{ trans('general.bulk_checkin') }}
+                        </a>
+                    </li>
+                    @endcan
+
                     @can('checkout', \App\Models\Asset::class)
                     <li{!! (Request::is('hardware/bulkcheckout') ? ' class="active"' : '') !!}>
                         <a href="{{ route('hardware/bulkcheckout') }}">

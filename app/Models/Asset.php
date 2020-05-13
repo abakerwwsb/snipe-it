@@ -1256,6 +1256,46 @@ class Asset extends Depreciable
         })->withTrashed()->whereNull("assets.deleted_at"); //workaround for laravel bug
     }
 
+
+    /**
+     * Query builder scope to search on text for complex Bootstrap Tables API.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query  Query builder instance
+     * @param  text                              $search      Search term
+     *
+     * @return \Illuminate\Database\Query\Builder          Modified query builder
+     */
+    public function scopeDeployedSearch($query, $search)
+    {
+        $search = explode(' OR ', $search);
+
+        return $query->where(function ($query) use ($search) {
+            foreach ($search as $search) {
+                $query->whereHas('model', function ($query) use ($search) {
+                    $query->whereHas('category', function ($query) use ($search) {
+                        $query->where(function ($query) use ($search) {
+                            $query->where('categories.name', 'LIKE', '%'.$search.'%')
+                                ->orWhere('models.name', 'LIKE', '%'.$search.'%')
+                                ->orWhere('models.model_number', 'LIKE', '%'.$search.'%');
+                        });
+                    });
+                })->orWhereHas('model', function ($query) use ($search) {
+                    $query->whereHas('manufacturer', function ($query) use ($search) {
+                        $query->where(function ($query) use ($search) {
+                            $query->where('manufacturers.name', 'LIKE', '%'.$search.'%');
+                        });
+                    });
+                })->orWhere('assets.name', 'LIKE', '%'.$search.'%')
+                    ->orWhere('assets.asset_tag', 'LIKE', '%'.$search.'%')
+                    ->orWhere('assets.serial', 'LIKE', '%'.$search.'%')
+                    ->orWhere('assets.order_number', 'LIKE', '%'.$search.'%')
+                    ->orWhere('assets.notes', 'LIKE', '%'.$search.'%');
+            }
+
+        })->withTrashed()->whereNull("assets.deleted_at"); //workaround for laravel bug
+    }
+
+
     /**
      * Query builder scope to search the department ID of users assigned to assets
      *
