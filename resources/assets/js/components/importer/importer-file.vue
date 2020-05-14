@@ -11,32 +11,43 @@ tr {
             <div class="col-md-2"></div>
             <div class="col-md-8" style="padding-top: 30px; margin: 0 auto;">
                 <div class="dynamic-form-row">
-                <div class="col-md-5 col-xs-12">
-                    <label for="import-type">Import Type:</label>
-                </div>
-                <div class="col-md-7 col-xs-12">
-                    <select2 :options="options.importTypes" v-model="options.importType" required>
-                        <option disabled value="0"></option>
-                    </select2>
+                    <div class="col-md-5 col-xs-12">
+                        <label for="import-type">Import Type:</label>
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <select2 :options="options.importTypes" v-model="options.importType" required>
+                            <option disabled value="0"></option>
+                        </select2>
+                    </div>
                 </div>
             </div>
             <div class="dynamic-form-row">
                 <div class="col-md-5 col-xs-12">
-                    <label for="import-update">Update Existing Values?:</label>
+                    <label for="import-update">Update Existing Values?</label>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <input type="checkbox" name="import-update" v-model="options.update">
+                    <input type="checkbox" class="minimal" name="import-update" v-model="options.update">
                 </div>
             </div>
+
             <div class="dynamic-form-row">
                 <div class="col-md-5 col-xs-12">
                     <label for="send-welcome">Send Welcome Email for new Users?</label>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <input type="checkbox" name="send-welcome" v-model="options.send_welcome">
-                </div>
+                    <input type="checkbox" class="minimal" name="send-welcome" v-model="options.send_welcome">
                 </div>
             </div>
+
+            <div class="dynamic-form-row">
+                <div class="col-md-5 col-xs-12">
+                    <label for="run-backup">Backup before importing?</label>
+                </div>
+                <div class="col-md-7 col-xs-12">
+                    <input type="checkbox" class="minimal" name="run-backup" v-model="options.run_backup">
+                </div>
+            </div>
+
             <div class="alert col-md-8 col-md-offset-2" style="text-align:left"
                  :class="alertClass"
                  v-if="statusText">
@@ -118,7 +129,6 @@ tr {
                     general: [
                         {id: 'category', text: 'Category' },
                         {id: 'company', text: 'Company' },
-                        {id: 'checkout_to', text: 'Checked out to' },
                         {id: 'email', text: 'Email' },
                         {id: 'item_name', text: 'Item Name' },
                         {id: 'location', text: 'Location' },
@@ -151,7 +161,9 @@ tr {
                         {id: 'model_number', text: "Model Number"},
                     ],
                     licenses: [
+                        {id: 'asset_tag', text: 'Assigned To Asset'},
                         {id: 'expiration_date', text: 'Expiration Date' },
+                        {id: 'full_name', text: 'Full Name' },
                         {id: 'license_email', text: 'Licensed To Email' },
                         {id: 'license_name', text: 'Licensed To Name' },
                         {id: 'purchase_order', text: 'Purchase Order' },
@@ -238,6 +250,7 @@ tr {
                     'import-update': this.options.update,
                     'send-welcome': this.options.send_welcome,
                     'import-type': this.options.importType,
+                    'run-backup': this.options.run_backup,
                     'column-mappings': this.columnMappings
                 }).then( ({body}) => {
                     // Success
