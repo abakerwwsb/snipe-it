@@ -171,7 +171,7 @@ img {
 /* Tables */
 
 .table table {
-    margin: 30px auto;
+    margin: 20px auto;
     width: 100%;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
@@ -187,11 +187,11 @@ img {
     color: #74787E;
     font-size: 15px;
     line-height: 18px;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .content-cell {
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Buttons */

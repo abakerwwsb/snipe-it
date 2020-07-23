@@ -414,7 +414,9 @@
                     @if (count($status_navs) > 0)
                         <li class="divider">&nbsp;</li>
                         @foreach ($status_navs as $status_nav)
-                            <li><a href="{{ route('statuslabels.show', ['id' => $status_nav->id]) }}"}> {{ $status_nav->name }}</a></li>
+                            <li><a href="{{ route('statuslabels.show', ['id' => $status_nav->id]) }}"}>
+                            <i class="fa fa-sticky-note text-white"></i>
+                             {{ $status_nav->name }}</a></li>
                         @endforeach
                     @endif
 
@@ -466,6 +468,13 @@
                     @endcan
 
                   <li class="divider">&nbsp;</li>
+                    @can('checkin', \App\Models\Asset::class)
+                    <li{!! (Request::is('hardware/bulkcheckin') ? ' class="active"' : '') !!}>
+                        <a href="{{ route('hardware/bulkcheckin') }}">
+                            {{ trans('general.bulk_checkin') }}
+                        </a>
+                    </li>
+                    @endcan
                     @can('checkout', \App\Models\Asset::class)
                     <li{!! (Request::is('hardware/bulkcheckout') ? ' class="active"' : '') !!}>
                         <a href="{{ route('hardware/bulkcheckout') }}">

@@ -20,7 +20,7 @@
 </div>
 
 <!-- EULA text -->
-<div class="form-group {{ $errors->has('eula_text') ? 'error' : '' }}">
+<div style="display: none;" class="form-group {{ $errors->has('eula_text') ? 'error' : '' }}">
     <label for="eula_text" class="col-md-3 control-label">{{ trans('admin/categories/general.eula_text') }}</label>
     <div class="col-md-7">
         {{ Form::textarea('eula_text', Input::old('eula_text', $item->eula_text), array('class' => 'form-control', 'aria-label'=>'eula_text')) }}
@@ -32,7 +32,7 @@
 </div>
 
 <!-- Use default checkbox -->
-<div class="form-group">
+<div style="display: none;" class="form-group">
     <div class="col-md-3">
     </div>
     <div class="col-md-9">
@@ -54,7 +54,7 @@
 
 
 <!-- Require Acceptance -->
-<div class="form-group">
+<div style="display: none;" class="form-group">
     <div class="col-md-3">
     </div>
     <div class="col-md-9">
@@ -67,7 +67,7 @@
 
 
 <!-- Email on Checkin -->
-<div class="form-group">
+<div style="display: none;" class="form-group">
     <div class="col-md-3">
     </div>
     <div class="col-md-9">
