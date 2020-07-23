@@ -164,6 +164,8 @@ Route::group([ 'prefix' => 'admin','middleware' => ['auth', 'authorize:superuser
 
     Route::get('phpinfo', ['as' => 'settings.phpinfo.index','uses' => 'SettingsController@getPhpInfo' ]);
 
+    Route::get('saml', ['as' => 'settings.saml.index','uses' => 'SettingsController@getSamlSettings' ]);
+    Route::post('saml', ['as' => 'settings.saml.index','uses' => 'SettingsController@postSamlSettings' ]);
 
     Route::get('oauth', [ 'as' => 'settings.oauth.index', 'uses' => 'SettingsController@api' ]);
 
