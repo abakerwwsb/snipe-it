@@ -94,8 +94,6 @@ Route::group(
             ]
         )->where('any', '.*');
 
-
-
         Route::get('{assetId}/clone', [
             'as' => 'clone/hardware',
             'uses' => 'Assets\AssetsController@getClone'
