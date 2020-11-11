@@ -148,7 +148,7 @@ Route::group(
             ]
         );
 
-        # Bulk checkout / checkin
+        # Bulk checkout
          Route::get( 'bulkcheckout',  [
                  'as' => 'hardware/bulkcheckout',
                  'uses' => 'BulkAssetsController@showCheckout'
@@ -159,7 +159,7 @@ Route::group(
         ]);
 
 
-        # Bulk checkout / checkin
+        # Bulk checkin
          Route::get( 'bulkcheckin',  [
                  'as' => 'hardware/bulkcheckin',
                  'uses' => 'BulkAssetsController@showCheckin'
@@ -169,7 +169,15 @@ Route::group(
             'uses' => 'BulkAssetsController@storeCheckin'
         ]);
 
-
+        # Hardware Rackable Routes
+        Route::get('racks/{rackId}', [
+            'as' => 'show/racks',
+            'uses' => 'AssetRacksController@show'
+        ]);
+        Route::get('racks', [
+            'as' => 'index/racks',
+            'uses' => 'AssetRacksController@index'
+        ]);
 
 
 });
