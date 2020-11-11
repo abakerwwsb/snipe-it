@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
-use App\Models\Statuslabel;
-use App\Models\Asset;
-use App\Http\Transformers\StatuslabelsTransformer;
+use App\Http\Controllers\Controller;
 use App\Http\Transformers\AssetsTransformer;
+use App\Http\Transformers\StatuslabelsTransformer;
+use App\Models\Asset;
+use App\Models\Statuslabel;
+use Illuminate\Http\Request;
 
 class StatuslabelsController extends Controller
 {
@@ -171,20 +171,26 @@ class StatuslabelsController extends Controller
 
         $labels=[];
         $points=[];
-        $colors=[];
+        $default_color = Helper::chartColors();
+        $default_color_count = 0;
+
         foreach ($statuslabels as $statuslabel) {
             if ($statuslabel->assets_count > 0) {
 
                 $labels[]=$statuslabel->name. ' ('.number_format($statuslabel->assets_count).')';
                 $points[]=$statuslabel->assets_count;
+
                 if ($statuslabel->color!='') {
-                    $colors[]=$statuslabel->color;
+                    $colors_array[] = $statuslabel->color;
+                } else {
+                    $colors_array[] = $default_color[$default_color_count];
+                    $default_color_count++;
                 }
             }
         }
 
         
-        $colors_array = array_merge($colors, Helper::chartColors());
+        $colors_array = array_merge($colors_array, Helper::chartColors());
 
         $result= [
             "labels" => $labels,
@@ -209,11 +215,11 @@ class StatuslabelsController extends Controller
     {
         $this->authorize('view', Statuslabel::class);
         $this->authorize('index', Asset::class);
-        $assets = Asset::where('status_id','=',$id);
+        $assets = Asset::where('status_id','=',$id)->with('assignedTo');
 
         $allowed_columns = [
             'id',
-            'name'
+            'name',
         ];
 
         $offset = request('offset', 0);
@@ -243,8 +249,6 @@ class StatuslabelsController extends Controller
      */
     public function checkIfDeployable($id) {
         $statuslabel = Statuslabel::findOrFail($id);
-        $this->authorize('view', Asset::class);
-
         if ($statuslabel->getStatuslabelType()=='deployable') {
             return '1';
         }
