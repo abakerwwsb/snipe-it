@@ -169,7 +169,25 @@ Route::group(
             'uses' => 'BulkAssetsController@storeCheckin'
         ]);
 
+        # Hardware Rackable Routes
+        Route::get('racks/{rackId}', [
+            'as' => 'show/racks',
+            'uses' => 'AssetRacksController@show'
+        ]);
+        Route::get('racks', [
+            'as' => 'index/racks',
+            'uses' => 'AssetRacksController@index'
+        ]);
 
+        # Hardware Vehicle Routes
+        Route::get('vehicles/{rackId}', [
+            'as' => 'show/vehicles',
+            'uses' => 'AssetVehiclesController@show'
+        ]);
+        Route::get('vehicles', [
+            'as' => 'index/vehicles',
+            'uses' => 'AssetVehiclesController@index'
+        ]);
 
 
 });

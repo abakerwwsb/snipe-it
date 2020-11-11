@@ -111,19 +111,19 @@
 		}
 
 		.error {
-		    background:#ffecec url('images/error.png') no-repeat 10px 50%;
+		    background:#ffecec 50%;
 		    border:1px solid #f5aca6;
 		}
 		.success {
-		    background:#e9ffd9 url('images/success.png') no-repeat 10px 50%;
+		    background:#e9ffd9 50%;
 		    border:1px solid #a6ca8a;
 		}
 		.warning {
-		    background:#fff8c4 url('images/warning.png') no-repeat 10px 50%;
+		    background:#fff8c4 50%;
 		    border:1px solid #f2c779;
 		}
 		.notice {
-		    background:#e3f7fc url('images/notice.png') no-repeat 10px 50%;
+		    background:#e3f7fc 50%;
 		    border:1px solid #8ed9f6;
 		}
 
@@ -330,12 +330,12 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery-2.1.1.js"></script>
 <!-- <script src="{{ asset('js/dist/all.js') }}"></script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/jspdf-autotable@3.5.6/dist/jspdf.plugin.autotable.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+<script src="/js/jspdf-1.5.3.js"></script>
+<script src="/js/jspdf-autotable-3.5.6.js"></script>
+<script src="/js/signature-pad-2.3.2.js"></script>
 
 <script nonce="{{ csrf_token() }}">
 	//Employee Signature Pad
@@ -391,7 +391,7 @@
 @if ($licenses->count() > 0)
 	<script>
 
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Licenses assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -413,7 +413,7 @@
 
 @if ($accessories->count() > 0)
 	<script>
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Accessories assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -435,7 +435,7 @@
 
 @if ($consumables->count() > 0)
 	<script>
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Consumables assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -455,7 +455,7 @@
 @endif
 
 <script nonce="{{ csrf_token() }}">
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(9);
 	var signatureParagraph = "I aknowledge receipt of the items listed above, and hereby agree to the terms stated above. I also agree that This Agreement supersedes and replaces all previous Acknowledgement of Receipt and Responsibility agreements hereto relating to company provided assets."

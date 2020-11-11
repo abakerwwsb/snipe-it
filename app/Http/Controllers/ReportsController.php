@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use Input;
+use DB;
 use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Http\Request;
@@ -228,6 +229,24 @@ class ReportsController extends Controller
         $licenses = License::with('depreciation')->orderBy('created_at', 'DESC')
                            ->with('company')
                            ->get();
+
+        $seats = DB::table('users')
+                ->join('license_seats', 'license_seats.assigned_to', '=', 'users.id')
+                ->join('licenses', 'license_seats.license_id', '=', 'licenses.id')
+                ->join('assets', 'license_seats.asset_id', '=', 'assets.id')
+                ->select('licenses.name as license_name',
+                         'licenses.serial',
+                         'licenses.seats',
+                         'licenses.notes',
+                         'licenses.license_email',
+                         'assets.name as asset_name',
+                         'assets.asset_tag',
+                         'users.first_name',
+                         'users.last_name',
+                         'users.email as user_email',
+                         'users.username as username')
+                ->where('licenses.name', 'like', '%Adobe%')
+                ->get();
 
         return view('reports/licenses', compact('licenses'));
     }

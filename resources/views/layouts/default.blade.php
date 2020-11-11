@@ -138,14 +138,26 @@
           <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
               <ul class="nav navbar-nav">
-                  @can('index', \App\Models\Asset::class)
-                  <li aria-hidden="true"{!! (Request::is('hardware*') ? ' class="active"' : '') !!} tabindex="-1">
-                      <a href="{{ url('hardware') }}" tabindex="-1">
-                          <i class="fa fa-barcode" aria-hidden="true"></i>
-                          <span class="sr-only">Assets</span>
-                      </a>
+                @can('index', \App\Models\Asset::class)
+                  <li aria-hidden="true"{!! (Request::is('hardware*') && !Request::is('hardware/racks*') && !Request::is('hardware/vehicles*') ? ' class="active"' : '') !!} tabindex="-1">
+                    <a href="{{ url('hardware') }}" tabindex="-1">
+                        <i class="fa fa-barcode" aria-hidden="true"></i>
+                        <span class="sr-only">Assets</span>
+                    </a>
                   </li>
-                  @endcan
+                  <li aria-hidden="true"{!! (Request::is('hardware/vehicles*') ? ' class="active"' : '') !!} tabindex="-1">
+                    <a href="/hardware/vehicles" tabindex="-1">
+                        <i class="fa fa-car" aria-hidden="true"></i>
+                        <span class="sr-only">Vehicles</span>
+                    </a>
+                  </li>
+                  <li aria-hidden="true"{!! (Request::is('hardware/racks*') ? ' class="active"' : '') !!} tabindex="-1">
+                    <a href="/hardware/racks" tabindex="-1">
+                        <i class="fa fa-server" aria-hidden="true"></i>
+                        <span class="sr-only">Racks</span>
+                    </a>
+                  </li>
+                @endcan
                   @can('view', \App\Models\License::class)
                   <li aria-hidden="true"{!! (Request::is('licenses*') ? ' class="active"' : '') !!} tabindex="-1">
                       <a href="{{ route('licenses.index') }}" tabindex="-1">
@@ -398,7 +410,7 @@
             </li>
             @endcan
             @can('index', \App\Models\Asset::class)
-            <li class="treeview{{ (Request::is('hardware*') ? ' active' : '') }}">
+            <li class="treeview{{ (Request::is('hardware*') && !Request::is('hardware/racks*') && !Request::is('hardware/vehicles*') ? ' active' : '') }}">
                 <a href="#"><i class="fa fa-barcode" aria-hidden="true"></i>
                   <span>{{ trans('general.assets') }}</span>
                   <i class="fa fa-angle-left pull-right"></i>
@@ -512,6 +524,22 @@
                         </li>
                     @endcan
                 </ul>
+              </li>
+              @endcan
+              @can('view', \App\Models\Asset::class)
+              <li{!! (Request::is('hardware/vehicles*') ? ' class="active"' : '') !!}>
+                  <a href="{{ route('index/vehicles') }}">
+                    <i class="fa fa-car"></i>
+                    <span>Vehicles</span>
+                  </a>
+              </li>
+              @endcan
+              @can('view', \App\Models\Asset::class)
+              <li{!! (Request::is('hardware/racks*') ? ' class="active"' : '') !!}>
+                  <a href="{{ route('index/racks') }}">
+                    <i class="fa fa-server"></i>
+                    <span>Racks</span>
+                  </a>
               </li>
               @endcan
               @can('view', \App\Models\License::class)
