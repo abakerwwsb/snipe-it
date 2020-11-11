@@ -1,19 +1,35 @@
 <template>
+<<<<<<< HEAD
     <div v-show="processDetail">
 
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="padding-top: 30px; margin: 0 auto;">
+=======
+
+    <div v-show="processDetail" class="col-md-6 col-md-offset-3">
+
+            <div class="row">
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                 <div class="dynamic-form-row">
                     <div class="col-md-5 col-xs-12">
                         <label for="import-type">Import Type:</label>
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                     <div class="col-md-7 col-xs-12">
                         <select2 :options="options.importTypes" v-model="options.importType" required>
                             <option disabled value="0"></option>
                         </select2>
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+
+                </div><!-- /dynamic-form-row -->
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                 <div class="dynamic-form-row">
                     <div class="col-md-5 col-xs-12">
                         <label for="import-update">Update Existing Values?:</label>
@@ -21,7 +37,12 @@
                     <div class="col-md-7 col-xs-12">
                         <input type="checkbox" class="minimal" name="import-update" v-model="options.update">
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+                </div><!-- /dynamic-form-row -->
+
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                 <div class="dynamic-form-row">
                     <div class="col-md-5 col-xs-12">
                         <label for="send-welcome">Send Welcome Email for new Users?</label>
@@ -29,7 +50,12 @@
                     <div class="col-md-7 col-xs-12">
                         <input type="checkbox" class="minimal" name="send-welcome" v-model="options.send_welcome">
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+                </div><!-- /dynamic-form-row -->
+
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                 <div class="dynamic-form-row">
                     <div class="col-md-5 col-xs-12">
                         <label for="run-backup">Backup before importing?</label>
@@ -37,6 +63,7 @@
                     <div class="col-md-7 col-xs-12">
                         <input type="checkbox" class="minimal" name="run-backup" v-model="options.run_backup">
                     </div>
+<<<<<<< HEAD
                 </div>
             </div>
             <div class="alert col-md-8 col-md-offset-2" style="text-align:left"
@@ -45,6 +72,17 @@
                 {{ this.statusText }}
             </div>
         </div>
+=======
+                </div><!-- /dynamic-form-row -->
+
+                <div class="alert col-md-8 col-md-offset-2" style="text-align:left"
+                     :class="alertClass"
+                     v-if="statusText">
+                    {{ this.statusText }}
+                </div><!-- /alert -->
+        </div> <!-- /div row -->
+
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="padding-top: 30px;">
@@ -52,7 +90,11 @@
                 <div class="col-md-4"><h4>Import Field</h4></div>
                 <div class="col-md-4"><h4>Sample Value</h4></div>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+        </div><!-- /div row -->
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
 
         <template v-for="(header, index) in file.header_row">
             <div class="row">
@@ -71,8 +113,13 @@
                     <div class="col-md-4">
                         <p class="form-control-static">{{ activeFile.first_row[index] }}</p>
                     </div>
+<<<<<<< HEAD
                 </div>
             </div>
+=======
+                </div><!-- /div col-md-8 -->
+            </div><!-- /div row -->
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
         </template>
 
         <div class="row">
@@ -81,17 +128,28 @@
                 <button type="submit" class="btn btn-sm btn-primary" @click="postSave">Import</button>
                 <br><br>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+        </div><!-- /div row -->
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
         <div class="row">
             <div class="alert col-md-8 col-md-offset-2" style="padding-top: 20px;"
                  :class="alertClass"
                  v-if="statusText">
                 {{ this.statusText }}
             </div>
+<<<<<<< HEAD
         </div>
 
 
     </div>
+=======
+        </div><!-- /div row -->
+
+    </div><!-- /div v-show -->
+
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
 </template>
 
 <script>
@@ -120,7 +178,10 @@
                     general: [
                         {id: 'category', text: 'Category' },
                         {id: 'company', text: 'Company' },
+<<<<<<< HEAD
                         {id: 'checkout_to', text: 'Checked out to' },
+=======
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                         {id: 'email', text: 'Email' },
                         {id: 'item_name', text: 'Item Name' },
                         {id: 'location', text: 'Location' },
@@ -153,7 +214,13 @@
                         {id: 'model_number', text: "Model Number"},
                     ],
                     licenses: [
+<<<<<<< HEAD
                         {id: 'expiration_date', text: 'Expiration Date' },
+=======
+                        {id: 'asset_tag', text: 'Assigned To Asset'},
+                        {id: 'expiration_date', text: 'Expiration Date' },
+                        {id: 'full_name', text: 'Full Name' },
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                         {id: 'license_email', text: 'Licensed To Email' },
                         {id: 'license_name', text: 'Licensed To Name' },
                         {id: 'purchase_order', text: 'Purchase Order' },
@@ -168,7 +235,16 @@
                         {id: 'phone_number', text: 'Phone Number' },
                         {id: 'manager_first_name', text: 'Manager First Name' },
                         {id: 'manager_last_name', text: 'Manager Last Name' },
+<<<<<<< HEAD
                         {id: 'activated', text: 'Activated' },
+=======
+                        {id: 'department', text: 'Department' },
+                        {id: 'activated', text: 'Activated' },
+                        {id: 'address', text: 'Address' },
+                        {id: 'city', text: 'City' },
+                        {id: 'state', text: 'State' },
+                        {id: 'country', text: 'Country' },
+>>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
 
                     ],
                     customFields: this.customFields,

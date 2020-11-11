@@ -182,6 +182,28 @@
             <td>{{ $asset->serial }}</td>
             <td>{{ \App\Helpers\Helper::getFormattedDateObject($asset->last_checkout, 'date', false) }}</td>
         </tr>
+            @if($settings->show_assigned_assets)
+                @php
+                    $assignedCounter = 1;
+                @endphp
+                @foreach ($asset->assignedAssets as $asset)
+
+                    <tr>
+                        <td>{{ $counter }}.{{ $assignedCounter }}</td>
+                        <td>{{ $asset->asset_tag }}</td>
+                        <td>{{ $asset->name }}</td>
+                        <td>{{ $asset->model->category->name }}</td>
+                        <td>{{ $asset->model->name }}</td>
+                        <td>{{ $asset->serial }}</td>
+                        <td>
+                            {{ $asset->last_checkout }}</td>
+                        <td><img height="20%" src="{{ asset('/') }}display-sig/{{ $asset->assetlog->first()->accept_signature }}"></img></td>
+                    </tr>
+                    @php
+                        $assignedCounter++
+                    @endphp
+                @endforeach
+            @endif
             @php
                 $counter++
             @endphp
@@ -391,7 +413,7 @@
 @if ($licenses->count() > 0)
 	<script>
 
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Licenses assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -413,7 +435,7 @@
 
 @if ($accessories->count() > 0)
 	<script>
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Accessories assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -435,7 +457,7 @@
 
 @if ($consumables->count() > 0)
 	<script>
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(12);
 	doc.text("Consumables assigned to {{ $show_user->present()->fullName() }}", 5, finalY);
@@ -455,7 +477,7 @@
 @endif
 
 <script nonce="{{ csrf_token() }}">
-	finalY = doc.lastAutoTable.finalY + 10;
+	finalY = doc.lastAutoTable.finalY + 10 || 65;
 
 	doc.setFontSize(9);
 	var signatureParagraph = "I aknowledge receipt of the items listed above, and hereby agree to the terms stated above. I also agree that This Agreement supersedes and replaces all previous Acknowledgement of Receipt and Responsibility agreements hereto relating to company provided assets."
