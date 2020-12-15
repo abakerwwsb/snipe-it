@@ -10,8 +10,8 @@
 @stop
 
 @section('header_right')
-  <a href="/hardware/vehicles/show-all" style="margin-right: 5px;" class="btn bg-teal-active">
-    View All Vehicles (including decomissioned)</a>
+  <a href="/hardware/vehicles" style="margin-right: 5px;" class="btn btn-warning">
+    View Only Active Vehicles</a>
 @stop
 
 {{-- Page content --}}

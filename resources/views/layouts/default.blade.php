@@ -419,12 +419,17 @@
                         {{ trans('general.list_all') }}
                     </a>
                   </li>
-
+                  <li>
+                    <a href="{{ url('hardware/barcodes') }}">
+                        <i class="fa fa-barcode text-white"></i>
+                        Create Barcode List
+                    </a>
+                  </li>
                     <?php $status_navs = \App\Models\Statuslabel::where('show_in_nav', '=', 1)->get(); ?>
                     @if (count($status_navs) > 0)
                         <li class="divider">&nbsp;</li>
                         @foreach ($status_navs as $status_nav)
-                            <li><a href="{{ route('statuslabels.show', ['id' => $status_nav->id]) }}"}>
+                            <li><a href="{{ route('statuslabels.show', ['statuslabel' => $status_nav->id]) }}"}>
                             <i class="fa fa-sticky-note text-white"></i>
                              {{ $status_nav->name }}</a></li>
                         @endforeach

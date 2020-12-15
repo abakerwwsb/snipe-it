@@ -413,6 +413,7 @@ class AssetsController extends Controller
         $this->authorize('view', $asset);
         return redirect()->route('hardware.show', $asset->id)->with('topsearch', $topsearch);
     }
+
     /**
      * Return a QR code for the asset
      *
@@ -438,6 +439,41 @@ class AssetsController extends Controller
                     } else {
                         $barcode = new \Com\Tecnick\Barcode\Barcode();
                         $barcode_obj =  $barcode->getBarcodeObj($settings->barcode_type, route('hardware.show', $asset->id), $size['height'], $size['width'], 'black', array(-2, -2, -2, -2));
+                        file_put_contents($qr_file, $barcode_obj->getPngData());
+                        return response($barcode_obj->getPngData())->header('Content-type', 'image/png');
+                    }
+                }
+            }
+            return 'That asset is invalid';
+        }
+    }
+
+
+    /**
+     * Return a QR code but only return the asset tag number when scanning the QR code
+     *
+     * @author [A. Gianotto] [<snipe@snipe.net>]
+     * @param int $assetId
+     * @since [v1.0]
+     * @return Response
+     */
+    public function getQrCodeAsset($assetId = null)
+    {
+        $settings = Setting::getSettings();
+
+        if ($settings->qr_code == '1') {
+            $asset = Asset::withTrashed()->find($assetId);
+            if ($asset) {
+                $size = Helper::barcodeDimensions($settings->barcode_type);
+                $qr_file = public_path().'/uploads/barcodes/qr-asset-'.str_slug($asset->asset_tag).'-'.str_slug($asset->id).'.png';
+
+                if (isset($asset->id, $asset->asset_tag)) {
+                    if (file_exists($qr_file)) {
+                        $header = ['Content-type' => 'image/png'];
+                        return response()->file($qr_file, $header);
+                    } else {
+                        $barcode = new \Com\Tecnick\Barcode\Barcode();
+                        $barcode_obj =  $barcode->getBarcodeObj($settings->barcode_type, $asset->asset_tag, $size['height'], $size['width'], 'black', array(-2, -2, -2, -2));
                         file_put_contents($qr_file, $barcode_obj->getPngData());
                         return response($barcode_obj->getPngData())->header('Content-type', 'image/png');
                     }

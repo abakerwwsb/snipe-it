@@ -75,7 +75,7 @@ class AssetVehiclesController extends Controller
                      'users.id as user_id',
                      'users.first_name as user_first_name',
                      'users.last_name as user_last_name')
-            ->whereRaw("_snipeit_licence_plate_3 <> ''")
+            ->whereRaw("_snipeit_licence_plate_3 <> '' AND status_labels.name <> 'Decomissioned'")
            
             ->orderBy('_snipeit_vehicle_number_5', 'asc')
             ->get();
@@ -93,31 +93,33 @@ class AssetVehiclesController extends Controller
      * @since [v1.0]
      * @return View
      */
-    public function show($rackId = null)
+    public function showAll($rackId = null)
     {
-        #$racks = DB::select('select * from assets where _snipeit_rack_number_18 = ' . $rackId, [1]);
-        $racks = DB::table('models')
-            ->join('assets', 'models.id', '=', 'assets.model_id')
-            ->join('manufacturers', 'models.manufacturer_id', '=', 'manufacturers.id')
+        #$vehicles = DB::select('select * from assets where _snipeit_rack_number_18 = ' . $rackId, [1]);
+        $vehicles = DB::table('assets')
+            ->join('models', 'assets.model_id', '=', 'models.id')
+            ->leftJoin('users', 'assets.assigned_to', '=', 'users.id')
+            ->leftJoin('status_labels', 'assets.status_id', '=', 'status_labels.id')
             ->select('assets.id as asset_id',
                      'assets.asset_tag',
-                     'assets.name',
-                     'assets.serial',
-                     'assets.assigned_to',
-                     'assets.notes',
-                     'assets._snipeit_service_tag_2 as service_tag',
-                     'assets._snipeit_computer_name_13 as computer_name',
-                     'assets._snipeit_rack_number_18 as rack_number',
-                     'assets._snipeit_ru_location_19 as ru_location',
-                     'assets._snipeit_ru_size_20 as ru_size',
+                     'assets.name as asset_name',
+                     'assets._snipeit_licence_plate_3 as license_plate',
+                     'assets._snipeit_vin_number_4 as vin_number',
+                     'assets._snipeit_vehicle_number_5 as vehicle_number',
+                     'assets.assigned_to as asset_assigned_to',
+                     'assets.notes as asset_notes',
                      'models.name as model_name',
-                     'models.model_number as model_number',
-                     'manufacturers.name as manufacturer_name')
-            ->where('_snipeit_rack_number_18', '=', $rackId)
-            ->orderBy('assets._snipeit_ru_location_19', 'desc')
+                     'users.id as user_id',
+                     'status_labels.name as status_name',
+                     'users.id as user_id',
+                     'users.first_name as user_first_name',
+                     'users.last_name as user_last_name')
+            ->whereRaw("_snipeit_licence_plate_3 <> ''")
+           
+            ->orderBy('_snipeit_vehicle_number_5', 'asc')
             ->get();
 
-        return view('hardware/vehicles/show')->with('rackId', $rackId)->with('rackData', $racks);
+        return view('hardware/vehicles/showAll')->with('vehicles', $vehicles);
     }
 
 }

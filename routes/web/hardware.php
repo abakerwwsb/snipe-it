@@ -128,6 +128,7 @@ Route::group(
             'uses' => 'Assets\AssetsController@show'
         ]);
         Route::get('{assetId}/qr_code', [ 'as' => 'qr_code/hardware', 'uses' => 'Assets\AssetsController@getQrCode' ]);
+        Route::get('{assetId}/qr_code_asset', [ 'as' => 'qr_code_asset/hardware', 'uses' => 'Assets\AssetsController@getQrCodeAsset' ]);
         Route::get('{assetId}/barcode', [ 'as' => 'barcode/hardware', 'uses' => 'Assets\AssetsController@getBarCode' ]);
         Route::get('{assetId}/restore', [
             'as' => 'restore/hardware',
@@ -185,11 +186,11 @@ Route::group(
         # Bulk checkin
          Route::get( 'bulkcheckin',  [
                  'as' => 'hardware/bulkcheckin',
-                 'uses' => 'BulkAssetsController@showCheckin'
+                 'uses' => 'Assets\BulkAssetsController@showCheckin'
          ]);
         Route::post( 'bulkcheckin',  [
             'as' => 'hardware/bulkcheckin',
-            'uses' => 'BulkAssetsController@storeCheckin'
+            'uses' => 'Assets\BulkAssetsController@storeCheckin'
         ]);
 
         # Hardware Rackable Routes
@@ -203,13 +204,23 @@ Route::group(
         ]);
 
         # Hardware Vehicle Routes
-        Route::get('vehicles/{rackId}', [
-            'as' => 'show/vehicles',
-            'uses' => 'AssetVehiclesController@show'
+        Route::get('vehicles/show-all', [
+            'as' => 'showall/vehicles',
+            'uses' => 'AssetVehiclesController@showAll'
         ]);
         Route::get('vehicles', [
             'as' => 'index/vehicles',
             'uses' => 'AssetVehiclesController@index'
+        ]);
+
+        # Hardware Vehicle Routes
+        Route::post('barcodes/create', [
+            'as' => 'create/barcodes',
+            'uses' => 'AssetBarcodesController@create'
+        ]);
+        Route::get('barcodes', [
+            'as' => 'index/barcodes',
+            'uses' => 'AssetBarcodesController@index'
         ]);
 
 

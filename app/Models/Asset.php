@@ -1307,6 +1307,27 @@ class Asset extends Depreciable
 
 
 
+     /**
+     * Query builder scope to search on text for complex Bootstrap Tables API.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query  Query builder instance
+     * @param  text                              $search      Search term
+     *
+     * @return \Illuminate\Database\Query\Builder          Modified query builder
+     */
+    public function scopeALLSearch($query, $search)
+    {
+        $search = explode(' OR ', $search);
+
+        return $query->where(function ($query) use ($search) {
+            foreach ($search as $search) {
+                $query->Where('assets.asset_tag', 'LIKE', '%'.$search.'%');
+            }
+
+        })->withTrashed()->whereNull("assets.deleted_at"); //workaround for laravel bug
+    }
+
+
 
     /**
      * Query builder scope to search on text filters for complex Bootstrap Tables API

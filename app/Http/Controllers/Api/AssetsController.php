@@ -400,6 +400,12 @@ class AssetsController extends Controller
                         $assets = $assets->DeployedSearch($request->input('search'));
                     }
                     break;
+                case 'ALL':
+                    $assets = $assets->NotArchived();
+                    if ($request->filled('search')) {
+                        $assets = $assets->DeployedSearch($request->input('search'));
+                    }
+                    break;
                 default:
                     break;
             }  

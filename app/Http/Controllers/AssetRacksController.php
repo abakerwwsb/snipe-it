@@ -57,11 +57,7 @@ class AssetRacksController extends Controller
     {
         #$this->authorize('index', Asset::class);
         
-<<<<<<< HEAD
-        $racks = DB::select('select DISTINCT _snipeit_rack_number_18 FROM assets', [1]);
-=======
         $racks = DB::select('select DISTINCT _snipeit_rack_number_18 FROM assets ORDER BY _snipeit_rack_number_18 ASC', [1]);
->>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
 
         return view('hardware/racks/index')->with('racks', $racks);
     }
@@ -72,11 +68,7 @@ class AssetRacksController extends Controller
      * Returns a view that presents information about an asset for detail view.
      *
      * @author [A. Gianotto] [<snipe@snipe.net>]
-<<<<<<< HEAD
      * @param int $rackId
-=======
-     * @param int $assetId
->>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
      * @since [v1.0]
      * @return View
      */
@@ -86,13 +78,9 @@ class AssetRacksController extends Controller
         $racks = DB::table('models')
             ->join('assets', 'models.id', '=', 'assets.model_id')
             ->join('manufacturers', 'models.manufacturer_id', '=', 'manufacturers.id')
-<<<<<<< HEAD
-            ->select('assets.asset_tag',
-=======
             ->select('assets.id as asset_id',
                      'assets.asset_tag',
                      'assets.name',
->>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
                      'assets.serial',
                      'assets.assigned_to',
                      'assets.notes',
@@ -111,7 +99,6 @@ class AssetRacksController extends Controller
         return view('hardware/racks/show')->with('rackId', $rackId)->with('rackData', $racks);
     }
 
-<<<<<<< HEAD
 
  
     /**
@@ -200,6 +187,4 @@ class AssetRacksController extends Controller
 
 
 
-=======
->>>>>>> 8569263c553c7f3bfb801fb84c9dac1f18a3aa42
 }
